@@ -1,0 +1,9 @@
+enabled: true
+
+inFight: "Je bent in gevecht met {player}"
+
+stillInFight: "&7Je bent nog in gevecht met {players}"
+and: "en" #Je bent nog in gevecht met Thomas__ 'en' DeStilleGast
+noLongerInFight: "&7Je bent niet meer in gevecht"
+
+bosbar: "Ga niet weg, je zit in een gevecht !"

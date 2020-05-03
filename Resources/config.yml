@@ -1,0 +1,28 @@
+#Set pvp as default on for players
+defaultPVPon: true
+
+#SQL Server config
+Server: 127.0.0.1
+Database: Survival
+User:
+Password:
+
+#Do not change unless you know what you do
+Table: PvpEnabledPlayers
+
+#messages
+prefix: "&8[&bPvP&8]"
+pvpEnabled: "PvP &aEnabled"
+pvpDisabled: "PvP &cDisabled"
+
+pvpEnabledForOther: "PvP &aEnabled&r voor {player}"
+pvpDisabledForOther: "PvP &cDisabled&r voor {player}"
+
+pvpCheckEnabled: "{player} heeft zijn/haar PvP &aEnabled"
+pvpCheckDisbled: "{player} heeft zijn/haar PvP &cDisabled"
+
+pvpDisabledMessage: "{player} heeft geen zin in PvP"
+pvpDisabledOwnMessage: "Je moet zelf je PvP uit zetten om ook te kunnen vechten"
+
+pvpDeactivateTimeout: "Je moet {time} secondes wachten totdat je PvP uitgeschakeld is !!"
+pvpDisabledFailedMove: "PvP is nogsteeds actief, je moet in totaal {time} secondes lang stil staan !!"

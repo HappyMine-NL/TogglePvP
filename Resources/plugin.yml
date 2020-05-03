@@ -1,0 +1,8 @@
+name: TogglePVP
+main: com.Minecraft.DeStilleGast.TogglePVP.Main
+author: DeStilleGast
+version: 1.1
+api-version: "1.13"
+commands:
+  pvp:
+    description: Enable - Disable PvP for yourself!
