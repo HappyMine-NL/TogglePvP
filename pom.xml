@@ -8,6 +8,10 @@
     <artifactId>TogglePVP</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <properties>
+        <project.author>DeStilleGast</project.author>
+    </properties>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
