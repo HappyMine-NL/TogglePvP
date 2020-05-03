@@ -1,7 +1,6 @@
-package com.Minecraft.DeStilleGast.TogglePVP;
+package nl.happymine;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,21 +18,18 @@ public class Connector {
     public Connector(Logger logger, String host, String database, String user, String password) {
         this.logger = logger;
 
-        this.host= host;
-        this.database= database;
-        this.user= user;
-        this.password= password;
+        this.host = host;
+        this.database = database;
+        this.user = user;
+        this.password = password;
     }
-
 
     public void open() {
         try {
 //            logger.info("Atempting to login to database");
-            con = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database+ "?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(),
+            con = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database + "?autoReconnect=true&serverTimezone=" + TimeZone.getDefault().getID(),
                     user, password);
 //            System.out.println(ZoneId.systemDefault().toString());
-
-
 
 //            logger.log(Level.INFO, "[MySQL] The connection to MySQL is made!");
         } catch (SQLException e) {
@@ -48,13 +44,13 @@ public class Connector {
 //                logger.log(Level.INFO, "[MySQL] The connection to MySQL is ended successfully!");
             }
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
     }
 
     /**
      * Request a prepare statement with the given query
+     *
      * @param qry Query
      * @return PreparedStatedment with given query
      */
@@ -64,6 +60,7 @@ public class Connector {
 
     /**
      * Execute a update/insert statement
+     *
      * @param statement PrepareStatement with Update/Insert statement
      */
     public int update(PreparedStatement statement) throws SQLException {
@@ -80,6 +77,7 @@ public class Connector {
 
     /**
      * Check if there is a connection to the MySQL server
+     *
      * @return true if there is a connection
      */
     public boolean hasConnection() {
@@ -88,6 +86,7 @@ public class Connector {
 
     /**
      * Execute SELECT statement
+     *
      * @param statement PrepareStatement with SELECT query
      * @return ResultSet from given PrepareStatement/query
      */
@@ -95,13 +94,13 @@ public class Connector {
         return statement.executeQuery();
     }
 
-    public void createTable(String tb){
+    public void createTable(String tb) {
         try {
             open();
             update(prepareStatement("CREATE TABLE IF NOT EXISTS " + tb));
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             close();
         }
     }

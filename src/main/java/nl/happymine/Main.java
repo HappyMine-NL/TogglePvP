@@ -1,11 +1,10 @@
-package com.Minecraft.DeStilleGast.TogglePVP;
+package nl.happymine;
 
-import com.Minecraft.DeStilleGast.TogglePVP.CombatLog.CombatLog;
-import com.Minecraft.DeStilleGast.TogglePVP.CombatLog.PlayerTagExtentie;
+import nl.happymine.combatLog.CombatLog;
+import nl.happymine.combatLog.PlayerTagExtension;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -41,7 +40,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
 
     private ArrayList<UUID> pvpEnabled = new ArrayList<>();
     private Connector SQL;
-    private String prefix = "&8[&bPvP&8]&r";
+    private String prefix = "&bPvP &8>&7";
 
     private File configFile = new File(getDataFolder(), "config.yml");
     private final HashMap<Player, Integer> disableMap = new HashMap<>();
@@ -72,6 +71,8 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
         password = sqlConfig.getString("Password");
         table = sqlConfig.getString("Table", "PvpEnabledPlayers");
 
+        prefix = sqlConfig.getString("prefix", prefix);
+
         SQL = new Connector(this.getLogger(), host, database, user, password);
         SQL.open();
         if (!SQL.hasConnection()) {
@@ -93,7 +94,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
-                for (PlayerTagExtentie pte : cl.getTagList()) {
+                for (PlayerTagExtension pte : cl.getTagList()) {
                     if (pte.getAttackerList().size() > 0) {
                         dontLeaveBas.addPlayer(pte.getMyPlayer());
                     } else {
@@ -132,7 +133,6 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
                         sendMessage(p, "pvpDisabled", p);
                 }
             }
-
         };
 
         getServer().getScheduler().runTaskLater(this, setPvP, 5);
@@ -149,7 +149,6 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
         Player attacker = null;
         Player target = null;
 
-
         if (entityAttacker instanceof Player) {
             attacker = (Player) e.getDamager();
         }
@@ -164,7 +163,6 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
 
                 attacker = (Player) pj.getShooter();
                 if (pj.getType() == EntityType.ENDER_PEARL && target == attacker) return;
-
             }
         }
 
@@ -178,7 +176,6 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
         if (attacker == null) return;
         if (target == null) return;
         if (attacker == target) return;
-
 
         boolean targetPvpEnabled = pvpEnabled.contains(target.getUniqueId());
         boolean attackerPvpEnabled = pvpEnabled.contains(attacker.getUniqueId());
@@ -211,8 +208,6 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
                     e.setCancelled(true);
                 }
             }
-
-
         }
     }
 
@@ -296,7 +291,6 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
 
 
     public boolean togglePvpOff(Player p, boolean skipTimer) {
-
         Runnable disableTask = new Runnable() {
 
             private final Location playerPos = p.getLocation();
@@ -335,12 +329,10 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
         };
 
         if (!skipTimer) {
-
-            if(cl.isInFight(p))
+            if (cl.isInFight(p))
                 return false;
 
-
-            if(disableMap.containsKey(p)){
+            if (disableMap.containsKey(p)) {
                 Bukkit.getScheduler().cancelTask(disableMap.get(p));
             }
 
@@ -416,7 +408,7 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
     public void sendMessage(CommandSender sender, String message, Player p) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix.trim() + " " + config.getString(message).replace("{player}", p.getName()).replace("{time}", 10 + "")));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.getString(message).replace("{player}", p.getName()).replace("{time}", 10 + "")));
     }
 
     public ArrayList<UUID> getPvpEnabled() {
@@ -440,10 +432,10 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
     }
 
     @EventHandler
-    public void onPlayerMoveWhileDisabeling(PlayerMoveEvent event){
+    public void onPlayerMoveWhileDisabling(PlayerMoveEvent event) {
         Player p = event.getPlayer();
-        if(disableMap.containsKey(p)){
-            if(event.getFrom() != event.getTo()) {
+        if (disableMap.containsKey(p)) {
+            if (event.getFrom() != event.getTo()) {
                 Bukkit.getScheduler().cancelTask(disableMap.get(p));
                 sendMessage(p, "pvpDisabledFailedMove", p);
                 togglePvpOn(p);
@@ -455,10 +447,10 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
     public CombatLog getCombatLogger() {
         return cl;
     }
-}
 
-enum EhasPvpEnabled {
-    YES,
-    NO,
-    UNKNOWN
+    enum EhasPvpEnabled {
+        YES,
+        NO,
+        UNKNOWN
+    }
 }

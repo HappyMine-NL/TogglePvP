@@ -1,0 +1,28 @@
+# Set pvp as default on for players
+defaultPVPon: false
+
+# SQL Server config
+Server: utilities-mariadb-1
+Database: survival
+User:
+Password:
+
+# Do not change unless you know what you do
+Table: PvpEnabledPlayers
+
+# Messages
+prefix: "&7"
+pvpEnabled: "&7PvP &aIngeschakeld"
+pvpDisabled: "&7PvP &cUitgeschakeld"
+
+pvpEnabledForOther: "&7PvP &aIngeschakeld&7 voor {player}"
+pvpDisabledForOther: "&7PvP &cUitgeschakeld&7 voor {player}"
+
+pvpCheckEnabled: "{player} &7heeft zijn/haar PvP &aIngeschakeld"
+pvpCheckDisbled: "{player} &7heeft zijn/haar PvP &cUitgeschakeld"
+
+pvpDisabledMessage: "{player} &7heeft geen zin in PvP"
+pvpDisabledOwnMessage: "&7Je moet zelf je PvP aan zetten om ook te kunnen vechten"
+
+pvpDeactivateTimeout: "&cJe moet &b{time} &csecondes stil staan totdat je PvP uitgeschakeld is !!"
+pvpDisabledFailedMove: "&cPvP is nogsteeds actief, je moet in totaal &b{time} &7secondes lang stil staan !!"
