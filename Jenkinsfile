@@ -9,7 +9,7 @@ pipeline {
 
     stage('Archive artifacts') {
       steps {
-        archiveArtifacts(artifacts: 'TogglePVP-1.0.0-SNAPSHOT.jar', onlyIfSuccessful: true)
+        archiveArtifacts(artifacts: 'target/TogglePVP-1.0.0-SNAPSHOT.jar', onlyIfSuccessful: true)
       }
     }
 
