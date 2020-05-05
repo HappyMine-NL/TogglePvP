@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('Archive artifacts') {
+      steps {
+        archiveArtifacts(artifacts: 'TogglePvP', onlyIfSuccessful: true)
+      }
+    }
+
   }
 }
