@@ -71,6 +71,9 @@ public class CombatLog implements org.bukkit.event.Listener {
             pAttacker.addAttacker(target.getName());
             pTarget.addAttacker(attacker.getName());
 
+            attacker.setWalkSpeed(0.2F);
+            target.setWalkSpeed(0.2F);
+
             sendAction(attacker, getMyConfig().getString("inFight").replace("{player}", target.getName()));
             sendAction(target, getMyConfig().getString("inFight").replace("{player}", attacker.getName()));
 
@@ -119,7 +122,7 @@ public class CombatLog implements org.bukkit.event.Listener {
                         }
                     }
                 }
-            }, 10 * 20);
+            }, 15 * 20);
         }
     }
 

@@ -417,6 +417,14 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerDeath(PlayerDeathEvent event) {
+        if (event.getEntity().getKiller() != null || !cl.getPlayerTag(event.getEntity()).getAttackerList().isEmpty()) {
+            event.setKeepInventory(true);
+            event.setKeepLevel(true);
+
+            event.getDrops().clear();
+            event.setDroppedExp(event.getDroppedExp() / 10);
+        }
+
         cl.onPlayerDeath(event.getEntity());
     }
 
