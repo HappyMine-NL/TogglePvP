@@ -2,6 +2,8 @@ package nl.happymine;
 
 import nl.happymine.combatLog.CombatLog;
 import nl.happymine.combatLog.PlayerTagExtension;
+import nl.happymine.papi.PlaceholderHook;
+import nl.happymine.papi.PlaceholderLongHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -103,6 +105,13 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
                 }
             }
         }, 20, 10);
+
+
+        // Small check to make sure that PlaceholderAPI is installed
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+            new PlaceholderLongHook(this).register();
+            new PlaceholderHook(this).register();
+        }
     }
 
     public Configuration getMyConfig() {
@@ -454,11 +463,5 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
 
     public CombatLog getCombatLogger() {
         return cl;
-    }
-
-    enum EhasPvpEnabled {
-        YES,
-        NO,
-        UNKNOWN
     }
 }
